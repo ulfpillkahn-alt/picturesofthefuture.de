@@ -1,0 +1,26 @@
+# robots.txt — picturesofthefuture.de
+# Prof. Dr. Ulf Pillkahn · Stand: 2026-11-17 (Cluster-Standard)
+#
+# Alles ist für alle lesbar, ausdrücklich auch für KI-Crawler.
+# Achtung: Ein Crawler mit eigener Gruppe liest NUR seine Gruppe. Deshalb
+# steht unter jedem genannten Crawler noch einmal "Allow: /".
+
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://picturesofthefuture.de/sitemap.xml

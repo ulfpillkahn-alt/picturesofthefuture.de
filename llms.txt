@@ -1,0 +1,27 @@
+# Pictures of the Future
+
+> Musterfall: ein Foresight-Prozess von der Fokusfrage über Signale, Szenarien und Windkanal bis zur angepassten Strategie, an einem fiktiven Unternehmen (VISEON AG, Jena) mit echten Läufen der Werkzeuge durchgespielt.
+
+Ein Projekt von Prof. Dr. Ulf Pillkahn. Die Person: https://pillkahn.de/ — das Angebot für Unternehmen: https://operation-zukunft.de/
+
+## Was hier ist
+
+- [Musterfall](https://picturesofthefuture.de/): Überblick über den Prozess, die vier Welten und den Befund des Windkanals
+- [Fokusfrage und Umfeldscanning](https://picturesofthefuture.de/scanning/): Fokusfrage, PESTEL-Faktoren, belegte Faktoren aus Squawk
+- [Trendradar](https://picturesofthefuture.de/trendradar/): Makro- und Mikroradar, Themen nach Reife
+- [Szenariorahmen](https://picturesofthefuture.de/szenariorahmen/): Einflussmatrix, Achsenwahl, Szenariokreuz
+- [Szenarien](https://picturesofthefuture.de/szenarien/): vier Welten für 2035, je als Szenariobild und Szenariofilm
+- [Windkanal](https://picturesofthefuture.de/windkanal/): Strategie 2026 gegen vier Welten, Annahmen, Strategic-Fit-Matrix
+- [Strategieanpassung und Frühwarnung](https://picturesofthefuture.de/strategie/): robuster Kern, Optionen mit Auslöser, Frühwarnindikatoren
+
+## Hinweis
+
+Die VISEON AG ist ein fiktives Unternehmen. Alle Unternehmensangaben sind erfunden; die Ergebnisse stammen aus Läufen der Werkzeuge Squawk, Pictures of Tomorrow und Windkanal-Lab vom 17.11.2026.
+
+## Person
+
+- [Prof. Dr. Ulf Pillkahn](https://pillkahn.de/about/): Prof. Dr. Ulf Pillkahn (FOM Hochschule, TU München) entwickelt mit Operation Zukunft KI-gestützte Verfahren für Corporate Foresight und Szenarioentwicklung (Flipped Foresight) und baut KI-Agenten für Trend- und Technologiemonitoring.
+
+## Angebot
+
+- [Operation Zukunft](https://operation-zukunft.de/): Corporate Foresight und KI-Agenten für Unternehmen.

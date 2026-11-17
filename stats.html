@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats · picturesofthefuture.de</title>
+    <link rel="canonical" href="https://picturesofthefuture.de/stats.html">
+    <!-- Interne Besucherstatistik. Unverlinkt, nicht in der Sitemap. -->
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <style>
+        @font-face { font-family: 'Space Grotesk'; font-weight: 400 700; font-display: swap; src: url('/fonts/space-grotesk-latin.woff2') format('woff2'); }
+        @font-face { font-family: 'Inter'; font-weight: 300 700; font-display: swap; src: url('/fonts/inter-latin.woff2') format('woff2'); }
+        @font-face { font-family: 'JetBrains Mono'; font-weight: 400 500; font-display: swap; src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2'); }
+    </style>
+    <style>
+        /* Palette von picturesofthefuture.de (designsystem.md): dunkler Grund, Magenta. Keine Verläufe. */
+        :root {
+            --bg-0: #0E0F11; --bg-card: #17181C; --border: rgba(241, 238, 240, .18);
+            --accent: #E04FD1; --accent-dim: #B23FA6;
+            --text-primary: #F1EEF0; --text-secondary: #B9B4BC; --text-dim: #8F8A93;
+            --glow: rgba(224, 79, 209, 0);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-0); color: var(--text-primary);
+            background-image: linear-gradient(rgba(242,239,232,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(242,239,232,.045) 1px, transparent 1px);
+            background-size: 24px 24px;
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 2rem;
+        }
+        .panel { width: 100%; max-width: 640px; }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; margin-bottom: 0.3rem; }
+        .sub { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: var(--text-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 2rem; }
+        .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .kpi { background: var(--bg-card); border: 1px solid var(--border); border-radius: 0; padding: 1.2rem; }
+        .kpi-label { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.4rem; }
+        .kpi-value { font-family: 'Space Grotesk', sans-serif; font-size: 1.9rem; font-weight: 700; color: var(--accent); }
+        .chart { background: var(--bg-card); border: 1px solid var(--border); border-radius: 0; padding: 1.4rem; }
+        .chart-title { font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; color: var(--text-dim); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 1rem; }
+        .bars { display: flex; align-items: flex-end; gap: 4px; height: 120px; }
+        .bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.35rem; height: 100%; justify-content: flex-end; }
+        .bar { width: 100%; background: var(--accent); border-radius: 0; min-height: 2px;  }
+        .bar-label { font-family: 'JetBrains Mono', monospace; font-size: 0.55rem; color: var(--text-dim); }
+        .bar-count { font-family: 'JetBrains Mono', monospace; font-size: 0.6rem; color: var(--text-secondary); }
+        .note { font-size: 0.75rem; color: var(--text-dim); margin-top: 1.5rem; line-height: 1.6; }
+        @media (max-width: 520px) { .kpis { grid-template-columns: 1fr; } .bar-label { display: none; } }
+
+        /* ---------- Tagesaufschlüsselung am Balken ---------- */
+        /* z-index, damit der Tooltip über dem Text darunter liegt */
+        .chart { position: relative; z-index: 5; }
+        .chart-hint { text-transform: none; letter-spacing: 0.02em; color: var(--text-dim); font-size: 0.6rem; }
+        .bar-wrap { cursor: help; border-radius: 3px; }
+        .bar-wrap:hover .bar, .bar-wrap:focus-visible .bar { filter: brightness(1.25); }
+        .bar-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .stats-tip {
+            position: absolute; z-index: 20; left: 12px; top: calc(100% - 0.4rem);
+            width: max-content; max-width: min(24rem, calc(100% - 1.5rem));
+            background: #17181C; border: 1px solid var(--accent); border-radius: 0;
+            padding: 0.85rem 1rem;
+            box-shadow: 0 18px 44px rgba(0,0,0,0.6);
+            opacity: 0; visibility: hidden; transform: translateY(-4px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+            text-align: left; pointer-events: none;
+        }
+        .stats-tip.open { opacity: 1; visibility: visible; transform: translateY(0); }
+        .stats-tip-datum {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.6rem;
+            color: var(--text-dim); letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .stats-tip-besuche { font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.15rem; }
+        .stats-tip-besuche strong {
+            font-family: 'Space Grotesk', sans-serif; font-size: 1.2rem;
+            color: var(--accent); margin-right: 0.15rem;
+        }
+        #stats-tip-meta { padding-bottom: 0.6rem; margin-bottom: 0.2rem; border-bottom: 1px solid var(--border); }
+        .stats-tip h3 {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.57rem; font-weight: 500;
+            color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase;
+            margin: 0.75rem 0 0.3rem;
+        }
+        .stats-row {
+            display: flex; align-items: baseline; gap: 1.2rem;
+            font-size: 0.78rem; color: var(--text-secondary); padding: 0.1rem 0;
+        }
+        .stats-row-name { flex: 1 1 auto; min-width: 0; }
+        .stats-row-now {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            color: var(--text-primary); font-weight: 500;
+        }
+        .stats-empty { font-size: 0.74rem; color: var(--text-dim); }
+        @media (max-width: 520px) {
+            .stats-tip { left: 12px !important; max-width: calc(100% - 1.5rem); }
+        }
+    </style>
+</head>
+<body>
+<div class="panel">
+    <h1>picturesofthefuture.de</h1>
+    <p class="sub">Besucher · intern</p>
+    <div class="kpis">
+        <div class="kpi"><div class="kpi-label">Heute</div><div class="kpi-value" id="k-heute">–</div></div>
+        <div class="kpi"><div class="kpi-label">14 Tage</div><div class="kpi-value" id="k-14">–</div></div>
+        <div class="kpi"><div class="kpi-label">Gesamt</div><div class="kpi-value" id="k-total">–</div></div>
+    </div>
+    <div class="chart" id="chart">
+        <div class="chart-title">Letzte 14 Tage <span class="chart-hint">— Balken überfahren zeigt Herkunft und Klicks des Tages. Esc schließt.</span></div>
+        <div class="bars" id="bars"></div>
+        <div class="stats-tip" id="stats-tip" role="tooltip" aria-hidden="true">
+            <div class="stats-tip-meta" id="stats-tip-meta"></div>
+            <div id="stats-tip-body"></div>
+        </div>
+    </div>
+    <p class="note">Zählung: einmal pro Browser-Sitzung, über den eigenen Zähler auf pillkahn.de (api/potf/visits.php) — GitHub Pages führt kein PHP aus. Keine IPs, keine Cookies, von der Herkunft nur der Hostname. Besuche je Tag bleiben 400 Tage, Herkunft und Klicks 40 Tage.</p>
+</div>
+
+<!-- track.js liefert die Zähler-Adresse (window.POTF_ZAEHLER) und zählt
+     auf dieser Seite nichts. -->
+<script src="/js/track.js?v=2026-11-17"></script>
+<script>
+(function () {
+    var URL_ = window.POTF_ZAEHLER || 'https://pillkahn.de/api/potf/visits.php';
+
+    var LABEL = {
+        direkt: 'Direkt eingegeben', intern: 'Eigene Seite', unbekannt: 'Unbekannt', weitere: 'Weitere',
+        'google-ads': 'Google Ads (Anzeige)',
+        google: 'Google', bing: 'Bing', duckduckgo: 'DuckDuckGo', ecosia: 'Ecosia', chatgpt: 'ChatGPT',
+        perplexity: 'Perplexity', claude: 'Claude', gemini: 'Gemini', linkedin: 'LinkedIn', x: 'X / Twitter',
+        meta: 'Facebook / Instagram', xing: 'Xing', youtube: 'YouTube',
+        'operation-zukunft': 'operation-zukunft.de', 'pillkahn-de': 'pillkahn.de',
+        'strategy-review': 'strategy-review.com', squawk: 'squawk.de',
+        picturesoftomorrow: 'picturesoftomorrow.com', 'flipped-foresight': 'flipped-foresight.com',
+        ssrn: 'SSRN', github: 'GitHub', 'lda-bayern': 'BayLDA',
+        'cta-angebot': 'Aufruf: Angebot auf operation-zukunft.de',
+        'hebel-scout': 'Hebel: Scout', 'hebel-outlook': 'Hebel: Outlook', 'hebel-tunnel': 'Hebel: Tunnel',
+        'about-pillkahn': 'About: Prof. Dr. Ulf Pillkahn', 'about-publikationen': 'About: Publikationen',
+        'about-oekosystem': 'About: Ökosystem', 'paper-ssrn': 'Paper auf SSRN',
+        'sprache-en': 'Sprachwechsel → EN', 'sprache-de': 'Sprachwechsel → DE',
+        datenschutz: 'Datenschutz (Fußzeile)', 'e-mail': 'E-Mail-Link'
+    };
+    var WOCHENTAG = ['So','Mo','Di','Mi','Do','Fr','Sa'];
+    var MONATE = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    function datumLang(iso) {
+        var d = new Date(iso + 'T12:00:00Z');
+        return WOCHENTAG[d.getUTCDay()] + ', ' + d.getUTCDate() + '. ' + MONATE[d.getUTCMonth()] + ' ' + d.getUTCFullYear();
+    }
+    function fmt(n) { return (n || 0).toLocaleString('de-DE'); }
+    function isoTag(d) {   // lokales Datum, wie der Server (Europe/Berlin)
+        return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+
+    var daten = null;
+    var tip = document.getElementById('stats-tip');
+    var meta = document.getElementById('stats-tip-meta');
+    var body = document.getElementById('stats-tip-body');
+    var chart = document.getElementById('chart');
+    var aktiverTag = null;
+
+    function zeile(name, zahl) {
+        var row = document.createElement('div'); row.className = 'stats-row';
+        var n = document.createElement('span'); n.className = 'stats-row-name'; n.textContent = name;
+        var z = document.createElement('span'); z.className = 'stats-row-now'; z.textContent = zahl;
+        row.appendChild(n); row.appendChild(z);
+        return row;
+    }
+    function abschnitt(titel, werte) {
+        var frag = document.createDocumentFragment();
+        var h = document.createElement('h3'); h.textContent = titel; frag.appendChild(h);
+        var liste = Object.keys(werte || {}).map(function (k) { return [k, werte[k]]; })
+            .sort(function (a, b) { return b[1] - a[1]; });
+        if (liste.length) {
+            liste.forEach(function (e) { frag.appendChild(zeile(LABEL[e[0]] || e[0], e[1])); });
+        } else {
+            var p = document.createElement('p'); p.className = 'stats-empty'; p.textContent = 'keine';
+            frag.appendChild(p);
+        }
+        return frag;
+    }
+    function oeffnen(wrap) {
+        aktiverTag = wrap;
+        var tag = wrap.getAttribute('data-day');
+        var besuche = parseInt(wrap.getAttribute('data-visits'), 10) || 0;
+        meta.innerHTML = '';
+        var d = document.createElement('div'); d.className = 'stats-tip-datum'; d.textContent = datumLang(tag);
+        var b = document.createElement('div'); b.className = 'stats-tip-besuche';
+        b.innerHTML = '<strong>' + besuche + '</strong> ' + (besuche === 1 ? 'Besuch' : 'Besuche');
+        meta.appendChild(d); meta.appendChild(b);
+        body.innerHTML = '';
+        body.appendChild(abschnitt('Herkunft', daten.quellen && daten.quellen[tag]));
+        body.appendChild(abschnitt('Klicks', daten.klicks && daten.klicks[tag]));
+        tip.classList.add('open');
+        tip.setAttribute('aria-hidden', 'false');
+        var cr = chart.getBoundingClientRect(), wr = wrap.getBoundingClientRect();
+        tip.style.left = '0px';
+        var breite = tip.offsetWidth;
+        var mitte = wr.left - cr.left + wr.width / 2 - breite / 2;
+        tip.style.left = Math.max(12, Math.min(mitte, chart.clientWidth - breite - 12)) + 'px';
+    }
+    function schliessen() {
+        aktiverTag = null;
+        tip.classList.remove('open');
+        tip.setAttribute('aria-hidden', 'true');
+    }
+
+    fetch(URL_, { cache: 'no-store' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) {
+            daten = d;
+            var tage = [];
+            for (var i = 13; i >= 0; i--) { var x = new Date(); x.setDate(x.getDate() - i); tage.push(isoTag(x)); }
+            var werte = tage.map(function (t) { return (d.tage && d.tage[t]) || 0; });
+            document.getElementById('k-heute').textContent = fmt(d.heute);
+            document.getElementById('k-14').textContent = fmt(werte.reduce(function (a, b) { return a + b; }, 0));
+            document.getElementById('k-total').textContent = fmt(d.total);
+            if (d.seit) {
+                document.querySelector('#k-total').previousElementSibling.textContent =
+                    'Gesamt seit ' + d.seit.slice(5, 7) + '/' + d.seit.slice(0, 4);
+            }
+            var max = Math.max.apply(null, werte.concat([1]));
+            var bars = document.getElementById('bars');
+            werte.forEach(function (v, idx) {
+                var wrap = document.createElement('div'); wrap.className = 'bar-wrap';
+                wrap.setAttribute('data-day', tage[idx]);
+                wrap.setAttribute('data-visits', v);
+                wrap.tabIndex = 0;
+                wrap.setAttribute('aria-describedby', 'stats-tip');
+                var count = document.createElement('div'); count.className = 'bar-count'; count.textContent = v || '';
+                var bar = document.createElement('div'); bar.className = 'bar';
+                bar.style.height = Math.max(2, Math.round(v / max * 100)) + '%';
+                var label = document.createElement('div'); label.className = 'bar-label';
+                label.textContent = tage[idx].slice(8) + '.' + tage[idx].slice(5, 7);
+                wrap.appendChild(count); wrap.appendChild(bar); wrap.appendChild(label);
+                wrap.addEventListener('mouseenter', function () { oeffnen(wrap); });
+                wrap.addEventListener('focus', function () { oeffnen(wrap); });
+                wrap.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    if (aktiverTag === wrap) schliessen(); else oeffnen(wrap);   // Touch: antippen schaltet um
+                });
+                bars.appendChild(wrap);
+            });
+            bars.addEventListener('mouseleave', schliessen);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') schliessen(); });
+            document.addEventListener('click', function (e) { if (!chart.contains(e.target)) schliessen(); });
+        })
+        .catch(function () {
+            document.querySelector('.chart-hint').textContent = '— Zähler nicht erreichbar.';
+        });
+})();
+</script>
+
+</body>
+</html>

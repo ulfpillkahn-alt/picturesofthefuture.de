@@ -1,0 +1,373 @@
+/* ============================================================
+   picturesofthefuture.de — style.css
+   Designsystem: designsystem.md im Repo. Tokens nur hier ändern.
+   ============================================================ */
+
+/* ---------- 1. Schriften (selbst gehostet, SIL OFL) ---------- */
+@font-face { font-family: 'Space Grotesk'; font-style: normal; font-weight: 400 700;
+  font-display: swap; src: url('../fonts/space-grotesk-latin.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 700;
+  font-display: swap; src: url('../fonts/inter-latin.woff2') format('woff2'); }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 500;
+  font-display: swap; src: url('../fonts/jetbrains-mono-latin.woff2') format('woff2'); }
+
+/* ---------- 2. Tokens ---------- */
+:root {
+  --grund: #0E0F11;
+  --flaeche: #17181C;
+  --text: #F1EEF0;
+  --text-2: #B9B4BC;
+  --text-3: #8F8A93;
+  --magenta: #E04FD1;
+  --linie: rgba(241, 238, 240, .18);
+  --linie-2: rgba(241, 238, 240, .08);
+
+  --f-titel: 'Space Grotesk', system-ui, sans-serif;
+  --f-text: 'Inter', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --breite: 1160px;
+  --lese: 44rem;
+  --rand: clamp(1rem, 4vw, 2.5rem);
+  --sektion: clamp(4rem, 9vw, 7rem);
+  color-scheme: dark;
+}
+
+/* ---------- 3. Grundlagen ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body { margin: 0; background: var(--grund); color: var(--text);
+  font: 400 1.0625rem/1.65 var(--f-text); overflow-x: hidden; }
+img, svg, video { display: block; max-width: 100%; }
+a { color: var(--magenta); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--f-titel); line-height: 1.12; margin: 0; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 600; margin-bottom: 1.2rem; max-width: 30ch; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+p { margin: 0 0 1rem; }
+.lese { max-width: var(--lese); }
+.zweit { color: var(--text-2); }
+.nachsatz { margin-top: 1.6rem; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.sprungmarke { position: absolute; left: -999px; top: 0; background: var(--magenta); color: var(--grund);
+  padding: .6rem 1rem; z-index: 10; }
+.sprungmarke:focus { left: 1rem; }
+.huelle { max-width: var(--breite); margin: 0 auto; padding-inline: var(--rand); }
+
+/* ---------- 4. Label (Bildnummer) ---------- */
+.label { font: 500 .78rem/1.4 var(--f-mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--magenta); margin: 0 0 1.2rem; display: flex; align-items: center; gap: .9rem; }
+.label::after { content: ""; flex: 0 0 3rem; height: 1px; background: var(--magenta); opacity: .6; }
+
+/* ---------- 5. Kopf ---------- */
+.kopf { border-bottom: 1px solid var(--linie); }
+.kopf .huelle { display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  min-height: 4.25rem; flex-wrap: wrap; }
+.marke { display: inline-flex; align-items: center; gap: .65rem; font: 500 .82rem/1 var(--f-mono);
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text); text-decoration: none; white-space: nowrap; }
+.marke svg { width: 22px; height: 15px; flex: none; }
+.nav { display: flex; align-items: center; gap: clamp(.9rem, 2.4vw, 1.8rem); flex-wrap: wrap; }
+.nav a { color: var(--text-2); text-decoration: none; font: 500 .8rem/1 var(--f-mono);
+  letter-spacing: .1em; text-transform: uppercase; padding-block: .5rem; }
+.nav a:hover, .nav a[aria-current="page"] { color: var(--text); }
+.nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--magenta); }
+
+/* ---------- 6. Filmstreifen (Prozessleiste) ---------- */
+.filmstreifen { border-bottom: 1px solid var(--linie); background: var(--flaeche); }
+.filmstreifen ol { list-style: none; margin: 0 auto; padding: 0 var(--rand); max-width: var(--breite);
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); position: relative; }
+/* Perforation oben und unten: Inline-SVG als Kachel, kein Verlauf */
+.filmstreifen ol::before, .filmstreifen ol::after { content: ""; position: absolute; left: var(--rand); right: var(--rand);
+  height: 6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='6'%3E%3Crect x='3' y='0' width='8' height='6' rx='1' fill='%23F1EEF0' fill-opacity='.16'/%3E%3C/svg%3E") repeat-x; }
+.filmstreifen ol::before { top: 6px; }
+.filmstreifen ol::after { bottom: 6px; }
+.filmstreifen li { border-left: 1px solid var(--linie-2); }
+.filmstreifen li:last-child { border-right: 1px solid var(--linie-2); }
+.filmstreifen a { display: block; padding: 1.35rem .8rem 1.3rem; text-decoration: none; color: var(--text-2);
+  font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; height: 100%; }
+.filmstreifen a b { display: block; color: var(--text-3); font-weight: 500; margin-bottom: .3rem; }
+.filmstreifen a:hover { color: var(--text); }
+.filmstreifen a[aria-current="step"] { color: var(--text); box-shadow: inset 0 0 0 2px var(--magenta); }
+.filmstreifen a[aria-current="step"] b { color: var(--magenta); }
+
+/* ---------- 7. Auftakt ---------- */
+.auftakt { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); }
+.auftakt h1 { font-size: clamp(2.3rem, 6.2vw, 4.6rem); font-weight: 700; line-height: 1; letter-spacing: -.02em;
+  margin-bottom: 1.6rem; max-width: 18ch; }
+.auftakt h1 span { display: block; color: var(--magenta); font-size: .5em; line-height: 1.2; letter-spacing: -.01em;
+  margin-top: .6rem; font-weight: 600; max-width: 30ch; }
+.lead { font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.5; max-width: 42rem; margin-bottom: 1.2rem; }
+.auftakt-bild { margin-top: clamp(2rem, 5vw, 3.5rem); }
+.welt-bild { margin: -.2rem 0 .4rem; padding: 6px; }
+.welt-bild figcaption { display: none; }
+.fiktion { font: 400 .82rem/1.5 var(--f-mono); color: var(--text-2); letter-spacing: .03em;
+  border-left: 2px solid var(--magenta); padding: .35rem 0 .35rem .9rem; margin: 1.6rem 0 0; max-width: 46rem; }
+
+/* ---------- 8. Passepartout (Leitmotiv) ---------- */
+.rahmen { margin: 0; background: var(--flaeche); padding: 10px; border: 1px solid var(--linie); }
+.rahmen > .bild { aspect-ratio: 16 / 9; outline: 1px solid var(--linie); outline-offset: -1px; overflow: hidden;
+  position: relative; background: var(--grund); }
+.rahmen > .bild > img, .rahmen > .bild > video, .rahmen > .bild > picture > img { width: 100%; height: 100%; object-fit: cover; }
+.rahmen figcaption { font: 400 .74rem/1.45 var(--f-mono); color: var(--text-3); letter-spacing: .04em; padding: .7rem .2rem .1rem; }
+.rahmen.frei > .bild { aspect-ratio: auto; background: transparent; outline: 0; }
+.leer { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 1rem;
+  font: 500 .74rem/1.5 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+
+/* ---------- 9. Sektionen ---------- */
+.sektion { padding-block: var(--sektion); border-top: 1px solid var(--linie); }
+.fokusfrage { font: 600 clamp(1.5rem, 3.4vw, 2.4rem)/1.25 var(--f-titel); max-width: 34ch; margin: 0 0 1.4rem;
+  padding-left: clamp(1rem, 2.5vw, 1.8rem); border-left: 3px solid var(--magenta); }
+.zweispalt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+
+/* Prozessschleife */
+.schleife { width: 100%; height: auto; }
+.schleife text { font-family: var(--f-mono); fill: var(--text); }
+.schleife .kreis { fill: none; stroke: var(--linie); stroke-width: 1; }
+.schleife .station { fill: var(--flaeche); stroke: var(--text-2); stroke-width: 1; }
+.schleife .nr { fill: var(--magenta); font-size: 11px; letter-spacing: .12em; }
+.schleife .name { font-size: 13px; letter-spacing: .04em; }
+.schleife .rueck { fill: none; stroke: var(--magenta); stroke-width: 1.5; stroke-dasharray: 5 6; animation: fluss 1.6s linear infinite; }
+.schleife .pfeil { fill: var(--magenta); }
+.schleife .mitte { font-size: 12px; fill: var(--text-2); letter-spacing: .08em; }
+@keyframes fluss { to { stroke-dashoffset: -22; } }
+.stationen { list-style: none; margin: 0; padding: 0; counter-reset: s; border-top: 1px solid var(--linie); }
+.stationen li { counter-increment: s; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .8rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--linie); }
+.stationen li::before { content: counter(s, decimal-leading-zero); font: 500 .85rem/1.65 var(--f-mono); color: var(--magenta); letter-spacing: .1em; }
+.stationen a { font: 600 1.05rem/1.4 var(--f-titel); color: var(--text); text-decoration: none; }
+.stationen a:hover { color: var(--magenta); }
+.stationen p { margin: .15rem 0 0; color: var(--text-2); font-size: .97rem; }
+.stationen .werk { display: block; font: 400 .74rem/1.4 var(--f-mono); color: var(--text-3); letter-spacing: .04em; margin-top: .35rem; }
+
+/* Szenariokreuz mit vier Welten */
+.kreuz { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: auto auto auto;
+  gap: 0; margin-top: 2.2rem; }
+.kreuz .achse-y { grid-row: 1 / 3; grid-column: 1; writing-mode: vertical-rl; transform: rotate(180deg);
+  display: flex; justify-content: space-between; font: 500 .72rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text-3); padding: .6rem 0; }
+.kreuz .achse-y b, .kreuz .achse-x b { color: var(--text-2); font-weight: 500; }
+.kreuz .achse-x { grid-column: 2 / 4; grid-row: 3; display: flex; justify-content: space-between; gap: 1rem;
+  font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); padding-top: .8rem; }
+.welt { border: 1px solid var(--linie); margin: -1px 0 0 -1px; padding: clamp(1.1rem, 2.4vw, 1.6rem); background: var(--flaeche);
+  display: flex; flex-direction: column; gap: .5rem; min-height: 11rem; }
+.welt .q { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); }
+.welt h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
+.welt p { margin: 0; color: var(--text-2); font-size: .97rem; }
+.welt .urteil { margin-top: auto; padding-top: .6rem; }
+
+/* Urteile: Symbol + Wort, nur „bricht" magenta */
+.urteil { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .06em; color: var(--text-2); white-space: nowrap; }
+.urteil::before { display: inline-block; width: 1.2em; }
+.u-haelt::before { content: "○"; }
+.u-wackelt::before { content: "◐"; }
+.u-bricht { color: var(--magenta); }
+.u-bricht::before { content: "●"; }
+.u-offen::before { content: "–"; }
+
+/* Erkenntnis */
+.erkenntnis { font: 600 clamp(1.25rem, 2.4vw, 1.65rem)/1.35 var(--f-titel); max-width: 38ch; margin: 0 0 1.4rem; }
+.erkenntnis em { font-style: normal; color: var(--magenta); }
+.ergebnis { width: 100%; border-collapse: collapse; margin-top: 1.6rem; font-size: .97rem; }
+.ergebnis th, .ergebnis td { text-align: left; vertical-align: top; padding: .9rem 1rem .9rem 0; border-bottom: 1px solid var(--linie); }
+.ergebnis thead th { font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+.ergebnis tbody th { font: 600 1rem/1.4 var(--f-titel); width: 30%; }
+.ergebnis td { color: var(--text-2); }
+.tabelle-huelle { overflow-x: auto; }
+
+/* Zwei Spalten: Agent / Mensch */
+.teilung { display: grid; grid-template-columns: 1fr 1fr; margin-top: 2rem; border: 1px solid var(--linie); }
+.teilung > div { padding: 1.5rem; }
+.teilung > div + div { border-left: 1px solid var(--linie); }
+.teilung h3 { font: 500 .8rem/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: .8rem; }
+.teilung .maschine h3 { color: var(--text-2); }
+.teilung .mensch h3 { color: var(--magenta); }
+.teilung p, .teilung ul { margin: 0; color: var(--text-2); }
+.teilung ul { padding-left: 1.1rem; }
+.teilung li { margin-bottom: .4rem; }
+
+/* Werkzeug */
+.werkzeug { border: 1px solid var(--linie); background: var(--flaeche); padding: clamp(1.4rem, 3vw, 2rem); max-width: 52rem; }
+.werkzeug p { color: var(--text-2); }
+.werkzeug p:last-child { margin: 0; }
+.werkzeug a { font-weight: 600; }
+
+/* Herkunft */
+.herkunft { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 3rem); align-items: start; }
+.herkunft .jahr { font: 600 clamp(1.4rem, 3vw, 2rem)/1.1 var(--f-titel); color: var(--text-3); }
+.herkunft .jahr span { display: block; font: 500 .74rem/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); margin-top: .4rem; }
+
+/* FAQ */
+.faq { border-bottom: 1px solid var(--linie); max-width: 52rem; }
+.faq:first-of-type { border-top: 1px solid var(--linie); }
+.faq summary { cursor: pointer; list-style: none; padding: 1.2rem 2.4rem 1.2rem 0; position: relative; font: 600 1.1rem/1.4 var(--f-titel); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; position: absolute; right: .2rem; top: 1.05rem; font: 400 1.4rem/1 var(--f-mono); color: var(--magenta); }
+.faq[open] summary::after { content: "–"; }
+.faq .antwort-faq { padding: 0 0 1.3rem; color: var(--text-2); }
+.faq .antwort-faq p:last-child { margin: 0; }
+
+/* Aufruf */
+.aufruf { background: var(--flaeche); border: 1px solid var(--linie); padding: clamp(1.6rem, 4vw, 3rem);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; }
+.aufruf h2 { margin-bottom: .8rem; }
+.aufruf p { margin: 0; color: var(--text-2); max-width: 38rem; }
+.knopf { display: inline-block; background: var(--magenta); color: var(--grund); text-decoration: none;
+  font: 600 1rem/1.3 var(--f-text); padding: 1rem 1.4rem; border: 2px solid var(--magenta); }
+.knopf:hover { background: transparent; color: var(--magenta); }
+
+/* Weiterblättern */
+.weiter { font-weight: 600; }
+.weiterblaettern { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 3rem;
+  padding-top: 1.4rem; border-top: 1px solid var(--linie); }
+.weiterblaettern a { font: 500 .85rem/1.4 var(--f-mono); letter-spacing: .06em; text-decoration: none; }
+.stand { font: 400 .8rem/1.5 var(--f-mono); color: var(--text-3); letter-spacing: .04em; margin-top: 2.5rem; }
+
+/* ---------- 10. Fuß ---------- */
+.fuss { border-top: 1px solid var(--linie); padding-block: 2.5rem 3rem; font-size: .9rem; color: var(--text-3); }
+.fuss-zeile { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem 2rem; }
+.fuss-links { display: flex; flex-wrap: wrap; gap: .6rem 1.6rem; align-items: center; }
+.fuss a { color: var(--text-2); }
+.cluster-hinweis { margin: 0; }
+.impressum-toggle { background: none; border: 1px solid var(--linie); color: var(--text-2); font: 500 .8rem/1 var(--f-mono);
+  letter-spacing: .08em; padding: .6rem .9rem; cursor: pointer; }
+.impressum-toggle:hover { border-color: var(--magenta); color: var(--magenta); }
+.impressum { display: none; margin-top: 1.4rem; background: var(--flaeche); border: 1px solid var(--linie); padding: 1.4rem 1.6rem; max-width: 46rem; }
+.impressum.offen, .impressum:target { display: block; }
+.impressum h2 { font-size: 1rem; margin-bottom: .8rem; }
+.impressum p { font-size: .85rem; line-height: 1.6; color: var(--text-3); margin-bottom: .6rem; }
+.impressum a { color: var(--magenta); }
+.copy { margin: 1.6rem 0 0; font: 400 .78rem/1.4 var(--f-mono); letter-spacing: .04em; }
+
+/* ---------- 11. Bewegung ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
+
+/* ---------- 12. Responsiv ---------- */
+@media (max-width: 960px) {
+  .zweispalt { grid-template-columns: 1fr; }
+  .schleife-huelle { max-width: 30rem; }
+  .aufruf { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  .filmstreifen ol { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .filmstreifen li:nth-child(3) { border-right: 1px solid var(--linie-2); }
+  .filmstreifen li:nth-child(n+4) { border-top: 1px solid var(--linie-2); }
+  .filmstreifen a { padding: 1.2rem .6rem 1.1rem; font-size: .68rem; }
+  /* Mobil: Welten untereinander, die Quadrantenzeile (.q) trägt die Achsenlage */
+  .kreuz { grid-template-columns: minmax(0, 1fr); }
+  .kreuz .achse-y, .kreuz .achse-x { display: none; }
+  .welt { margin: 0 0 -1px 0; min-height: 0; }
+  .teilung { grid-template-columns: 1fr; }
+  .teilung > div + div { border-left: 0; border-top: 1px solid var(--linie); }
+  .herkunft { grid-template-columns: 1fr; gap: .8rem; }
+  /* Ergebnistabelle mobil als Blöcke: Welt, Urteil, Begründung untereinander */
+  .ergebnis thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .ergebnis tr { display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem; padding: .9rem 0; border-bottom: 1px solid var(--linie); }
+  .ergebnis th, .ergebnis td { border: 0; padding: 0; width: auto; }
+  .ergebnis td:last-child { grid-column: 1 / -1; }
+  .kopf .huelle { padding-block: .9rem; }
+}
+
+/* ---------- 13. Unterseiten (Stationen) ---------- */
+.seite-auftakt { padding-block: clamp(3rem, 7vw, 5rem) clamp(2.5rem, 5vw, 3.5rem); }
+.seite-auftakt h1 { font-size: clamp(2rem, 4.6vw, 3.3rem); font-weight: 700; line-height: 1.05; margin-bottom: 1.4rem; max-width: 24ch; }
+.seite-auftakt .stand { margin-top: 1rem; }
+.zwischen { font-size: 1.25rem; margin: 2.8rem 0 1rem; }
+h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); margin: 1.6rem 0 .6rem; }
+.nachsatz-gross { margin-top: 4rem; }
+.quelle { border-top: 1px solid var(--linie); padding-top: 1rem; }
+.nr { display: inline-block; min-width: 2.6rem; font: 500 .74rem/1.6 var(--f-mono); color: var(--magenta); letter-spacing: .06em; }
+.rel { font: 400 .72rem/1 var(--f-mono); color: var(--text-3); margin-left: .3rem; }
+.liste { margin: 0; padding-left: 1.2rem; color: var(--text-2); max-width: var(--lese); }
+.liste li { margin-bottom: .5rem; }
+.liste li::marker { color: var(--magenta); }
+
+/* Faktorliste (Eingabe) */
+.faktorliste { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem 2rem; margin-bottom: 1rem; }
+.faktorliste h3 { font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); margin: .6rem 0 .4rem; }
+.faktorliste ul { list-style: none; margin: 0; padding: 0; font-size: .92rem; }
+.faktorliste li { padding: .2rem 0; border-bottom: 1px solid var(--linie-2); }
+
+/* Radar */
+.radarpaar { align-items: center; margin-top: 2rem; }
+.radar { width: 100%; height: auto; }
+.radar .ring { fill: none; stroke: var(--linie); }
+.radar .speiche { stroke: var(--linie-2); }
+.radar .sektor { font: 500 11px var(--f-mono); fill: var(--text-2); letter-spacing: .08em; text-transform: uppercase; }
+.radar .ringname { font: 400 9px var(--f-mono); fill: var(--text-3); }
+.radar .punkt, .radar .punkt circle { fill: var(--text-2); fill-opacity: .55; stroke: var(--text); stroke-opacity: .5; stroke-width: .5; }
+.radar .nrtext { font: 500 9px var(--f-mono); fill: var(--magenta); }
+.themenliste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); font-size: .95rem; }
+.themenliste li { padding: .45rem 0; border-bottom: 1px solid var(--linie-2); color: var(--text-2); }
+.themenliste.nummern .nr { min-width: 1.8rem; }
+
+/* Einflussmatrix */
+.matrix-huelle { overflow-x: auto; margin-top: 1.4rem; }
+.einfluss { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .9rem; }
+.einfluss th { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: .6rem; }
+.einfluss td { border: 1px solid var(--linie); vertical-align: top; padding: .7rem; background: var(--flaeche); width: 30%; }
+.einfluss td.kritisch { outline: 2px solid var(--magenta); outline-offset: -2px; }
+.einfluss ul { list-style: none; margin: 0; padding: 0; }
+.einfluss li { padding: .2rem 0; color: var(--text-2); }
+.einfluss li.achse { color: var(--text); font-weight: 600; }
+.einfluss li.achse .nr::after { content: " ◆"; }
+.einfluss li.raus { color: var(--text-3); text-decoration: line-through; }
+.legende { font: 400 .78rem/1.5 var(--f-mono); color: var(--text-3); margin-top: .8rem; }
+.legende .achse { color: var(--text); font-weight: 600; }
+.legende .achse::after { content: " ◆"; color: var(--magenta); }
+.legende .raus { text-decoration: line-through; }
+.schritte-kurz b { display: block; font: 600 1.05rem/1.4 var(--f-titel); }
+.kreuz.klein .welt { min-height: 6rem; }
+
+/* Weltdetail mit Umschalter */
+.weltdetail { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: start; padding-block: clamp(2.5rem, 5vw, 4rem); border-top: 1px solid var(--linie); margin-top: 2rem; }
+.weltdetail .umschalter { grid-column: 1 / -1; display: inline-flex; border: 1px solid var(--linie); width: max-content; }
+.umschalter button { background: none; border: 0; color: var(--text-2); font: 500 .78rem/1 var(--f-mono); letter-spacing: .08em;
+  text-transform: uppercase; padding: .7rem 1rem; cursor: pointer; }
+.umschalter button + button { border-left: 1px solid var(--linie); }
+.umschalter button[aria-pressed="true"] { background: var(--magenta); color: var(--grund); }
+.kernsatz-welt { font: 600 1.15rem/1.45 var(--f-titel); }
+
+/* Matrix Annahmen / Sprints gegen Welten */
+.matrix { border-collapse: collapse; width: 100%; min-width: 760px; font-size: .9rem; margin-top: 1rem; }
+.matrix th, .matrix td { border-bottom: 1px solid var(--linie); padding: .8rem .8rem .8rem 0; text-align: left; vertical-align: top; }
+.matrix thead th { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
+.matrix tbody th { font-weight: 500; width: 28%; color: var(--text); }
+.matrix .grund { display: block; color: var(--text-3); font-size: .8rem; line-height: 1.45; margin-top: .3rem; }
+.matrix.fit td { white-space: nowrap; }
+.ketten { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); }
+.ketten li { padding: .9rem 0; border-bottom: 1px solid var(--linie); display: grid; grid-template-columns: 14rem 7rem minmax(0, 1fr); gap: 1rem; }
+.ketten span:last-child { color: var(--text-2); font-size: .92rem; }
+.optionen { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
+.optionen li { border: 1px solid var(--linie); background: var(--flaeche); padding: 1.2rem; }
+.optionen .typ { display: block; font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--magenta); margin-bottom: .5rem; }
+.optionen b { font: 600 1.05rem/1.35 var(--f-titel); display: block; margin-bottom: .5rem; }
+.optionen p { color: var(--text-2); font-size: .93rem; margin-bottom: .6rem; }
+.optionen .stand { margin: 0; }
+.sprintliste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); }
+.sprintliste li { padding: .6rem 0; border-bottom: 1px solid var(--linie); }
+.sprintliste .stand { display: block; margin: .2rem 0 0 2.6rem; font-size: .76rem; }
+.vorher-nachher > div:first-child { opacity: .78; }
+.fw td { font-size: .9rem; }
+
+/* Über */
+.about { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: clamp(1.8rem, 4vw, 3.5rem); align-items: start; }
+.about figure { margin: 0; }
+.about img { width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; filter: grayscale(1) contrast(1.05); }
+.kernsatz { font-size: 1.12rem; line-height: 1.6; }
+.about-links { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; margin-top: 1.4rem; }
+.about-links a { font-weight: 600; }
+.recht { max-width: 46rem; }
+.recht h2 { font-size: 1.3rem; margin: 2.4rem 0 .8rem; max-width: none; }
+.recht p, .recht li { color: var(--text-2); }
+
+@media (max-width: 960px) {
+  .weltdetail { grid-template-columns: 1fr; }
+  .ketten li { grid-template-columns: 1fr; gap: .3rem; }
+  .about { grid-template-columns: 1fr; }
+  .about figure { max-width: 220px; }
+}
