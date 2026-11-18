@@ -389,6 +389,8 @@ def main():
     mi_svg, mi_liste, n_mi = radar_mikro()
     setze("trendradar/index.html", {"radar-makro": mk_svg, "liste-makro": mk_liste, "radar-mikro": mi_svg,
                                     "liste-mikro": mi_liste, "zahl-makro": str(n_mk), "zahl-mikro": str(n_mi)})
+    # Startseite, Schritte 01 und 02: dasselbe Makroradar, eigene Titel-ID
+    setze("index.html", {"radar-start": mk_svg.replace("radar-makro-t", "radar-start-t")})
     setze("szenariorahmen/index.html", {"einflussmatrix": einflussmatrix()})
     setze("szenarien/index.html", {"welten": welten()})
     setze("windkanal/index.html", {"annahmen-matrix": annahmen_matrix(), "sprint-matrix": sprint_matrix(),

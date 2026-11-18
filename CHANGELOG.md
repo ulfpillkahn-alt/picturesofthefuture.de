@@ -1,5 +1,20 @@
 # Changelog picturesofthefuture.de
 
+## 18.11.2026 — Akzent Orange, volle Textbreite, Startseite neu gegliedert, Werksbild
+
+- **Akzent** Magenta `#E04FD1` → Orange `#F4821F` (Token `--magenta` → `--akzent`), auch in `stats.html`,
+  `favicon.svg` und der Wortmarke. Text auf Orange dunkel. Kontrast 7,36 : 1 auf `--grund`.
+  Die Higgsfield-Bilder vom 17.11. behalten ihr magentafarbenes Licht (Liste in `bildstil.md`).
+- **Textbreite:** Fließtext über die volle Inhaltsbreite (`--lese: 100%`) auf allen Seiten.
+- **Startseite neu gegliedert:** Lage (Werksblock „VISEON AG auf einen Blick" mit Eckpunkten aus dem Briefing,
+  Leitfrage „Was muss die VISEON AG tun, damit sie 2035 noch wettbewerbsfähig ist?" einzeilig ab 768 px) ·
+  Vorgehen (Prozessgrafik als Oval mit Erklärungen) · Analyse der Frage und drei Schrittpaare mit Makroradar,
+  Szenariokreuz und Windkanal-Ergebnis · Arbeitsteilung, Herkunft, Fragen, Aufruf. Keine „Bild NN"-Labels mehr.
+- **Werksbild** `img/werk*` (GPT Image 2.6, Higgsfield) als Bild 00; `og:image` jetzt `img/og-werk.jpg`.
+- **Gelöscht:** `img/start.avif`, `img/start.webp`, `img/start-560.avif`, `img/start-560.webp`,
+  `img/start-760.avif`, `img/start-760.webp` (nicht mehr eingebunden).
+- Cache-Buster `2026-11-18`.
+
 ## 17.11.2026 — Relaunch als Musterfall (vor Livegang)
 
 **Vorher:** „VISEON Futures"-Dashboard (Stand 23.03.2026, nginx bei All-Inkl), gesichert in

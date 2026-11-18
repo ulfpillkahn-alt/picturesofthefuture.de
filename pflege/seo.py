@@ -27,7 +27,7 @@ import sys
 
 BASIS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = "https://picturesofthefuture.de"
-VERSION = "2026-11-17"          # Cache-Buster für CSS/JS — bei Änderungen hochzählen
+VERSION = "2026-11-18"          # Cache-Buster für CSS/JS — bei Änderungen hochzählen
 SITE_NAME = "Pictures of the Future"
 
 # ------------------------------------------------------------------ Kanon
@@ -106,14 +106,17 @@ SEITEN = [
 NUR_RAHMEN = ["404.html", "stats.html"]
 
 NAV = [("Szenarien", "/szenarien/"), ("Windkanal", "/windkanal/"), ("Strategie", "/strategie/"), ("Über", "/ueber/")]
-OG_BILD = {"url": DOMAIN + "/img/og.jpg", "w": 1200, "h": 630,
-           "alt": "Pictures of the Future: Musterfall eines Foresight-Prozesses"}
+OG_BILD = {"url": DOMAIN + "/img/og-werk.jpg", "w": 1200, "h": 630,
+           "alt": "Das fiktive Werk der VISEON AG im Flusstal, Musterfall eines Foresight-Prozesses"}
 
 # Bilder (Higgsfield, siehe bildstil.md): img/NAME{,-760,-560}.{avif,webp}, 1600 × 893.
 # Im HTML: <!-- bild:NAME --> … <!-- /bild --> (lazy) oder <!-- bild:NAME:oben --> (erste Ansicht).
+# Breite: Standard volle Inhaltsbreite, :schmal = Viertel im Szenariokreuz, :halb = Spalte im Werksblock.
 BILD_MASS = (1600, 893)
 BILD_ALT = {
-    "start": "Ein gerahmtes Bild an dunkler Wand zeigt ein Flusstal in der Dämmerung mit einem Werk am Ufer.",
+    "werk": ("Das fiktive Werk der VISEON AG am Rand eines Flusstals mit Kalkfelsen: weiße kubische Bauten "
+             "mit Bandfenstern und Schriftzug, verglaster Treppenturm, Werkhalle mit Sheddach und orangem Rolltor, "
+             "davor Pförtnerhaus, Schranke und Parkplatz."),
     "scanning": "Ein Sensormast auf einem Felsgrat über einem Flusstal bei Nacht; Lichtpunkte über Himmel und Tal verstreut, einer leuchtet magenta.",
     "trendradar": "Ein runder Radarschirm mit Ringen und Lichtpunkten in einem dunklen Pult.",
     "szenariorahmen": "Ein Zeichenblatt auf einem Zeichentisch, durch zwei sich kreuzende Linien in vier Felder geteilt.",
@@ -225,7 +228,7 @@ def graph(s, t):
 
 
 MARKE_SVG = ('<svg viewBox="0 0 22 15" aria-hidden="true" focusable="false"><rect x="1" y="1" width="20" height="13" '
-             'fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="5" y="4.5" width="12" height="6" fill="#E04FD1"/></svg>')
+             'fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="5" y="4.5" width="12" height="6" fill="#F4821F"/></svg>')
 
 
 def kopf_html(aktuell):
@@ -276,7 +279,12 @@ def bilder(t):
     def ein(m):
         name, opts = m.group(1), (m.group(2) or "").split(":")[1:]
         laden = 'fetchpriority="high"' if "oben" in opts else 'loading="lazy"'
-        sizes = "(max-width: 760px) 92vw, 560px" if "schmal" in opts else "(max-width: 1200px) 92vw, 1140px"
+        if "schmal" in opts:
+            sizes = "(max-width: 760px) 92vw, 560px"
+        elif "halb" in opts:
+            sizes = "(max-width: 899px) 92vw, 620px"
+        else:
+            sizes = "(max-width: 1200px) 92vw, 1140px"
         quellen = "\n".join(
             f'  <source type="image/{fmt}" srcset="/img/{name}-560.{fmt} 560w, /img/{name}-760.{fmt} 760w, /img/{name}.{fmt} {w}w" sizes="{sizes}">'
             for fmt in ("avif", "webp"))

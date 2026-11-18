@@ -20,7 +20,7 @@ Alles im Repo ist öffentlich, auch diese Datei und `pflege/`. DNS bei All-Inkl 
 
 | Pfad | Inhalt |
 |---|---|
-| `/` | Startseite: Fokusfrage, Prozessschleife, vier Welten, Befund, FAQ, Aufruf |
+| `/` | Startseite: Lage (Werksblock, Leitfrage) · Vorgehen (Prozessoval) · Analyse und drei Schrittpaare · Arbeitsteilung, Herkunft, FAQ, Aufruf |
 | `/scanning/` `/trendradar/` `/szenariorahmen/` `/szenarien/` `/windkanal/` `/strategie/` | sechs Stationen, gleicher Aufbau (Was hier passiert · Artefakt · Agent/Mensch · Werkzeug · Aufruf · Weiter) |
 | `/ueber/` | Kurzprofil (AboutPage) |
 | `/datenschutz/` | Datenschutz inkl. Zähler (noindex) |
@@ -44,6 +44,10 @@ python3 pflege/seo.py            # Kopf, JSON-LD, Navigation, Filmstreifen, Fuß
   Description > 155 ab. **Kopf, JSON-LD, Navigation, Filmstreifen, Fuß und Bildeinbindung nie von Hand ändern.**
   Titles/Descriptions in `SEITEN`, Alt-Texte in `BILD_ALT`. Bei CSS/JS-Änderung `VERSION` hochzählen.
 - Gestaltung: `designsystem.md`. Bildprompts, Modelle, Job-IDs: `bildstil.md`.
+- Akzentfarbe: Token `--akzent` = Orange `#F4821F` (seit 18.11.2026, vorher Magenta); Text auf Orange immer `--grund`.
+- Startseite: Leitfrage `h2.leitfrage` ab 768 px einzeilig per `calc(100cqi / --leitfaktor)`; bei Textänderung
+  Verhältnis Textbreite/Schriftgröße (Space Grotesk 600) neu messen, × 1,02. Werksblock `.werksblock`: Eckpunkte
+  nur aus dem Briefing, Abschnitt 1. Makroradar der Startseite über `grafiken.py` (`daten:radar-start`).
 
 ## Vorschau lokal
 

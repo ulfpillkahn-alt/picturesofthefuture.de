@@ -18,16 +18,17 @@
   --text: #F1EEF0;
   --text-2: #B9B4BC;
   --text-3: #8F8A93;
-  --magenta: #E04FD1;
+  --akzent: #F4821F;
   --linie: rgba(241, 238, 240, .18);
   --linie-2: rgba(241, 238, 240, .08);
+  --trenner: rgba(241, 238, 240, .42);
 
   --f-titel: 'Space Grotesk', system-ui, sans-serif;
   --f-text: 'Inter', system-ui, sans-serif;
   --f-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --breite: 1160px;
-  --lese: 44rem;
+  --lese: 100%;              /* Fließtext füllt die Inhaltsbreite (--breite abzüglich --rand) */
   --rand: clamp(1rem, 4vw, 2.5rem);
   --sektion: clamp(4rem, 9vw, 7rem);
   color-scheme: dark;
@@ -39,9 +40,9 @@ html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 body { margin: 0; background: var(--grund); color: var(--text);
   font: 400 1.0625rem/1.65 var(--f-text); overflow-x: hidden; }
 img, svg, video { display: block; max-width: 100%; }
-a { color: var(--magenta); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+a { color: var(--akzent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
 a:hover { text-decoration-thickness: 2px; }
-:focus-visible { outline: 2px solid var(--magenta); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--akzent); outline-offset: 3px; }
 h1, h2, h3 { font-family: var(--f-titel); line-height: 1.12; margin: 0; letter-spacing: -.01em; }
 h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); font-weight: 600; margin-bottom: 1.2rem; max-width: 30ch; }
 h3 { font-size: 1.25rem; font-weight: 600; }
@@ -50,15 +51,15 @@ p { margin: 0 0 1rem; }
 .zweit { color: var(--text-2); }
 .nachsatz { margin-top: 1.6rem; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.sprungmarke { position: absolute; left: -999px; top: 0; background: var(--magenta); color: var(--grund);
+.sprungmarke { position: absolute; left: -999px; top: 0; background: var(--akzent); color: var(--grund);
   padding: .6rem 1rem; z-index: 10; }
 .sprungmarke:focus { left: 1rem; }
 .huelle { max-width: var(--breite); margin: 0 auto; padding-inline: var(--rand); }
 
 /* ---------- 4. Label (Bildnummer) ---------- */
 .label { font: 500 .78rem/1.4 var(--f-mono); letter-spacing: .14em; text-transform: uppercase;
-  color: var(--magenta); margin: 0 0 1.2rem; display: flex; align-items: center; gap: .9rem; }
-.label::after { content: ""; flex: 0 0 3rem; height: 1px; background: var(--magenta); opacity: .6; }
+  color: var(--akzent); margin: 0 0 1.2rem; display: flex; align-items: center; gap: .9rem; }
+.label::after { content: ""; flex: 0 0 3rem; height: 1px; background: var(--akzent); opacity: .6; }
 
 /* ---------- 5. Kopf ---------- */
 .kopf { border-bottom: 1px solid var(--linie); }
@@ -71,7 +72,7 @@ p { margin: 0 0 1rem; }
 .nav a { color: var(--text-2); text-decoration: none; font: 500 .8rem/1 var(--f-mono);
   letter-spacing: .1em; text-transform: uppercase; padding-block: .5rem; }
 .nav a:hover, .nav a[aria-current="page"] { color: var(--text); }
-.nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--magenta); }
+.nav a[aria-current="page"] { box-shadow: inset 0 -2px 0 var(--akzent); }
 
 /* ---------- 6. Filmstreifen (Prozessleiste) ---------- */
 .filmstreifen { border-bottom: 1px solid var(--linie); background: var(--flaeche); }
@@ -88,21 +89,45 @@ p { margin: 0 0 1rem; }
   font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; height: 100%; }
 .filmstreifen a b { display: block; color: var(--text-3); font-weight: 500; margin-bottom: .3rem; }
 .filmstreifen a:hover { color: var(--text); }
-.filmstreifen a[aria-current="step"] { color: var(--text); box-shadow: inset 0 0 0 2px var(--magenta); }
-.filmstreifen a[aria-current="step"] b { color: var(--magenta); }
+.filmstreifen a[aria-current="step"] { color: var(--text); box-shadow: inset 0 0 0 2px var(--akzent); }
+.filmstreifen a[aria-current="step"] b { color: var(--akzent); }
 
 /* ---------- 7. Auftakt ---------- */
 .auftakt { padding-block: clamp(3rem, 7vw, 5.5rem) clamp(2.5rem, 5vw, 4rem); }
 .auftakt h1 { font-size: clamp(2.3rem, 6.2vw, 4.6rem); font-weight: 700; line-height: 1; letter-spacing: -.02em;
   margin-bottom: 1.6rem; max-width: 18ch; }
-.auftakt h1 span { display: block; color: var(--magenta); font-size: .5em; line-height: 1.2; letter-spacing: -.01em;
+.auftakt h1 span { display: block; color: var(--akzent); font-size: .5em; line-height: 1.2; letter-spacing: -.01em;
   margin-top: .6rem; font-weight: 600; max-width: 30ch; }
-.lead { font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.5; max-width: 42rem; margin-bottom: 1.2rem; }
-.auftakt-bild { margin-top: clamp(2rem, 5vw, 3.5rem); }
+.lead { font-size: clamp(1.15rem, 2vw, 1.4rem); line-height: 1.5; max-width: var(--lese); margin-bottom: 1.2rem; }
+/* Werksblock: Werksbild links, Eckpunkte rechts (ab 900px), darunter die Leitfrage */
+.werksblock { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.8rem, 4vw, 3rem);
+  align-items: start; margin-top: clamp(2rem, 5vw, 3.5rem); }
+.eckpunkte h2 { font-size: 1.25rem; margin: 0 0 .3rem; max-width: none; }
+.eckpunkte-hinweis { font: 400 .78rem/1.5 var(--f-mono); color: var(--text-3); letter-spacing: .04em; margin: 0 0 1rem; }
+.eckpunkte dl { margin: 0; border-top: 1px solid var(--linie); }
+.eckpunkte dl > div { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: .2rem 1rem; padding: .5rem 0;
+  border-bottom: 1px solid var(--linie-2); }
+.eckpunkte dt { font: 500 .72rem/1.9 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
+.eckpunkte dd { margin: 0; font-size: .97rem; line-height: 1.5; color: var(--text); }
+.eckpunkte dd span { display: block; }
+/* Leitfrage: ab 768px genau eine Zeile über die Inhaltsbreite, nur CSS.
+   Faktor = Textbreite / Schriftgröße (Space Grotesk 600, Laufweite -.01em) × 1,02 Sicherheitsabstand. */
+.leitfrage { --leitfaktor: 34.99;  /* gemessen 34,30 × 1,02 */ font-size: 1.6rem; font-weight: 600; line-height: 1.15; letter-spacing: -.01em;
+  color: var(--text); max-width: none; text-wrap: balance; margin: calc(var(--sektion) * .7) 0 0; }
+.leitfrage span { color: var(--akzent); }
+@media (min-width: 768px) {
+  .leitfrage { white-space: nowrap; text-wrap: nowrap;
+    font-size: calc((min(100vw, var(--breite)) - 2 * var(--rand)) / var(--leitfaktor)); }
+  /* Wo Containereinheiten gehen, rechnet die Zeile mit der echten Inhaltsbreite (ohne Scrollbalken) */
+  @supports (width: 1cqi) {
+    .auftakt > .huelle { container-type: inline-size; }
+    .leitfrage { font-size: calc(100cqi / var(--leitfaktor)); }
+  }
+}
 .welt-bild { margin: -.2rem 0 .4rem; padding: 6px; }
 .welt-bild figcaption { display: none; }
 .fiktion { font: 400 .82rem/1.5 var(--f-mono); color: var(--text-2); letter-spacing: .03em;
-  border-left: 2px solid var(--magenta); padding: .35rem 0 .35rem .9rem; margin: 1.6rem 0 0; max-width: 46rem; }
+  border-left: 2px solid var(--akzent); padding: .35rem 0 .35rem .9rem; margin: 1.6rem 0 0; max-width: var(--lese); }
 
 /* ---------- 8. Passepartout (Leitmotiv) ---------- */
 .rahmen { margin: 0; background: var(--flaeche); padding: 10px; border: 1px solid var(--linie); }
@@ -117,26 +142,45 @@ p { margin: 0 0 1rem; }
 /* ---------- 9. Sektionen ---------- */
 .sektion { padding-block: var(--sektion); border-top: 1px solid var(--linie); }
 .fokusfrage { font: 600 clamp(1.5rem, 3.4vw, 2.4rem)/1.25 var(--f-titel); max-width: 34ch; margin: 0 0 1.4rem;
-  padding-left: clamp(1rem, 2.5vw, 1.8rem); border-left: 3px solid var(--magenta); }
+  padding-left: clamp(1rem, 2.5vw, 1.8rem); border-left: 3px solid var(--akzent); }
 .zweispalt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4rem); align-items: start; }
 
 /* Prozessschleife */
 .schleife { width: 100%; height: auto; }
 .schleife text { font-family: var(--f-mono); fill: var(--text); }
-.schleife .kreis { fill: none; stroke: var(--linie); stroke-width: 1; }
-.schleife .station { fill: var(--flaeche); stroke: var(--text-2); stroke-width: 1; }
-.schleife .nr { fill: var(--magenta); font-size: 11px; letter-spacing: .12em; }
-.schleife .name { font-size: 13px; letter-spacing: .04em; }
-.schleife .rueck { fill: none; stroke: var(--magenta); stroke-width: 1.5; stroke-dasharray: 5 6; animation: fluss 1.6s linear infinite; }
-.schleife .pfeil { fill: var(--magenta); }
-.schleife .mitte { font-size: 12px; fill: var(--text-2); letter-spacing: .08em; }
+.schleife a { text-decoration: none; }
+.schleife .kreis { fill: none; stroke: var(--text-3); stroke-width: 2; }
+.schleife .station { fill: var(--flaeche); stroke: var(--text); stroke-width: 2; }
+.schleife a:hover .station, .schleife a:focus-visible .station { stroke: var(--akzent); }
+.schleife a:hover .name { fill: var(--akzent); }
+.schleife .nr { fill: var(--akzent); font-size: 16px; font-weight: 500; letter-spacing: .1em; }
+.schleife .name { font: 600 19px var(--f-titel); fill: var(--text); }
+.schleife .erkl { font: 400 15px var(--f-text); fill: var(--text-2); }
+.schleife .rueck { fill: none; stroke: var(--akzent); stroke-width: 2.5; stroke-dasharray: 7 7; animation: fluss 1.6s linear infinite; }
+.schleife .pfeil { fill: var(--akzent); }
+.schleife .mitte { font-size: 14px; fill: var(--text-2); letter-spacing: .08em; }
+.schleife-breit { margin-top: 2rem; }
+.stationen.nur-schmal { display: none; }
+/* Gliederung der Startseite: Trennstrich zwischen den Teilen, innerhalb eines Teils keiner */
+.sektion.teil { border-top: 1px solid var(--trenner); }
+.sektion.folge { border-top: 0; padding-top: calc(var(--sektion) * .5); }
+/* Schrittpaare */
+.schrittpaar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin: 1.6rem 0 2.2rem; }
+.schritt h3 { display: flex; align-items: baseline; gap: .7rem; margin-bottom: .6rem; }
+.schritt h3 span { font: 500 .85rem/1 var(--f-mono); color: var(--akzent); letter-spacing: .1em; }
+.schritt p { color: var(--text-2); }
+.werkzeug-zeile { font-size: .92rem; }
+.schritt-mit-grafik { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; margin-top: 1.6rem; }
+.schritt-mit-grafik .schrittpaar { grid-template-columns: 1fr; margin: 0; gap: 2rem; }
+@media (max-width: 960px) { .schritt-mit-grafik { grid-template-columns: 1fr; } .radar-start { max-width: 34rem; } }
+.radar-start figcaption { font: 400 .74rem/1.45 var(--f-mono); color: var(--text-3); letter-spacing: .04em; padding-top: .4rem; }
 @keyframes fluss { to { stroke-dashoffset: -22; } }
 .stationen { list-style: none; margin: 0; padding: 0; counter-reset: s; border-top: 1px solid var(--linie); }
 .stationen li { counter-increment: s; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: .8rem;
   padding: 1rem 0; border-bottom: 1px solid var(--linie); }
-.stationen li::before { content: counter(s, decimal-leading-zero); font: 500 .85rem/1.65 var(--f-mono); color: var(--magenta); letter-spacing: .1em; }
+.stationen li::before { content: counter(s, decimal-leading-zero); font: 500 .85rem/1.65 var(--f-mono); color: var(--akzent); letter-spacing: .1em; }
 .stationen a { font: 600 1.05rem/1.4 var(--f-titel); color: var(--text); text-decoration: none; }
-.stationen a:hover { color: var(--magenta); }
+.stationen a:hover { color: var(--akzent); }
 .stationen p { margin: .15rem 0 0; color: var(--text-2); font-size: .97rem; }
 .stationen .werk { display: block; font: 400 .74rem/1.4 var(--f-mono); color: var(--text-3); letter-spacing: .04em; margin-top: .35rem; }
 
@@ -151,23 +195,23 @@ p { margin: 0 0 1rem; }
   font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); padding-top: .8rem; }
 .welt { border: 1px solid var(--linie); margin: -1px 0 0 -1px; padding: clamp(1.1rem, 2.4vw, 1.6rem); background: var(--flaeche);
   display: flex; flex-direction: column; gap: .5rem; min-height: 11rem; }
-.welt .q { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); }
+.welt .q { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--akzent); }
 .welt h3 { font-size: clamp(1.15rem, 2vw, 1.4rem); }
 .welt p { margin: 0; color: var(--text-2); font-size: .97rem; }
 .welt .urteil { margin-top: auto; padding-top: .6rem; }
 
-/* Urteile: Symbol + Wort, nur „bricht" magenta */
+/* Urteile: Symbol + Wort, nur „bricht" im Akzent */
 .urteil { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .06em; color: var(--text-2); white-space: nowrap; }
 .urteil::before { display: inline-block; width: 1.2em; }
 .u-haelt::before { content: "○"; }
 .u-wackelt::before { content: "◐"; }
-.u-bricht { color: var(--magenta); }
+.u-bricht { color: var(--akzent); }
 .u-bricht::before { content: "●"; }
 .u-offen::before { content: "–"; }
 
 /* Erkenntnis */
 .erkenntnis { font: 600 clamp(1.25rem, 2.4vw, 1.65rem)/1.35 var(--f-titel); max-width: 38ch; margin: 0 0 1.4rem; }
-.erkenntnis em { font-style: normal; color: var(--magenta); }
+.erkenntnis em { font-style: normal; color: var(--akzent); }
 .ergebnis { width: 100%; border-collapse: collapse; margin-top: 1.6rem; font-size: .97rem; }
 .ergebnis th, .ergebnis td { text-align: left; vertical-align: top; padding: .9rem 1rem .9rem 0; border-bottom: 1px solid var(--linie); }
 .ergebnis thead th { font: 500 .74rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--text-3); }
@@ -181,13 +225,13 @@ p { margin: 0 0 1rem; }
 .teilung > div + div { border-left: 1px solid var(--linie); }
 .teilung h3 { font: 500 .8rem/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: .8rem; }
 .teilung .maschine h3 { color: var(--text-2); }
-.teilung .mensch h3 { color: var(--magenta); }
+.teilung .mensch h3 { color: var(--akzent); }
 .teilung p, .teilung ul { margin: 0; color: var(--text-2); }
 .teilung ul { padding-left: 1.1rem; }
 .teilung li { margin-bottom: .4rem; }
 
 /* Werkzeug */
-.werkzeug { border: 1px solid var(--linie); background: var(--flaeche); padding: clamp(1.4rem, 3vw, 2rem); max-width: 52rem; }
+.werkzeug { border: 1px solid var(--linie); background: var(--flaeche); padding: clamp(1.4rem, 3vw, 2rem); max-width: var(--lese); }
 .werkzeug p { color: var(--text-2); }
 .werkzeug p:last-child { margin: 0; }
 .werkzeug a { font-weight: 600; }
@@ -195,14 +239,14 @@ p { margin: 0 0 1rem; }
 /* Herkunft */
 .herkunft { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: clamp(1.4rem, 4vw, 3rem); align-items: start; }
 .herkunft .jahr { font: 600 clamp(1.4rem, 3vw, 2rem)/1.1 var(--f-titel); color: var(--text-3); }
-.herkunft .jahr span { display: block; font: 500 .74rem/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); margin-top: .4rem; }
+.herkunft .jahr span { display: block; font: 500 .74rem/1.4 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--akzent); margin-top: .4rem; }
 
 /* FAQ */
-.faq { border-bottom: 1px solid var(--linie); max-width: 52rem; }
+.faq { border-bottom: 1px solid var(--linie); max-width: var(--lese); }
 .faq:first-of-type { border-top: 1px solid var(--linie); }
 .faq summary { cursor: pointer; list-style: none; padding: 1.2rem 2.4rem 1.2rem 0; position: relative; font: 600 1.1rem/1.4 var(--f-titel); }
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary::after { content: "+"; position: absolute; right: .2rem; top: 1.05rem; font: 400 1.4rem/1 var(--f-mono); color: var(--magenta); }
+.faq summary::after { content: "+"; position: absolute; right: .2rem; top: 1.05rem; font: 400 1.4rem/1 var(--f-mono); color: var(--akzent); }
 .faq[open] summary::after { content: "–"; }
 .faq .antwort-faq { padding: 0 0 1.3rem; color: var(--text-2); }
 .faq .antwort-faq p:last-child { margin: 0; }
@@ -211,10 +255,10 @@ p { margin: 0 0 1rem; }
 .aufruf { background: var(--flaeche); border: 1px solid var(--linie); padding: clamp(1.6rem, 4vw, 3rem);
   display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2rem; align-items: center; }
 .aufruf h2 { margin-bottom: .8rem; }
-.aufruf p { margin: 0; color: var(--text-2); max-width: 38rem; }
-.knopf { display: inline-block; background: var(--magenta); color: var(--grund); text-decoration: none;
-  font: 600 1rem/1.3 var(--f-text); padding: 1rem 1.4rem; border: 2px solid var(--magenta); }
-.knopf:hover { background: transparent; color: var(--magenta); }
+.aufruf p { margin: 0; color: var(--text-2); max-width: var(--lese); }
+.knopf { display: inline-block; background: var(--akzent); color: var(--grund); text-decoration: none;
+  font: 600 1rem/1.3 var(--f-text); padding: 1rem 1.4rem; border: 2px solid var(--akzent); }
+.knopf:hover { background: transparent; color: var(--akzent); }
 
 /* Weiterblättern */
 .weiter { font-weight: 600; }
@@ -231,12 +275,12 @@ p { margin: 0 0 1rem; }
 .cluster-hinweis { margin: 0; }
 .impressum-toggle { background: none; border: 1px solid var(--linie); color: var(--text-2); font: 500 .8rem/1 var(--f-mono);
   letter-spacing: .08em; padding: .6rem .9rem; cursor: pointer; }
-.impressum-toggle:hover { border-color: var(--magenta); color: var(--magenta); }
-.impressum { display: none; margin-top: 1.4rem; background: var(--flaeche); border: 1px solid var(--linie); padding: 1.4rem 1.6rem; max-width: 46rem; }
+.impressum-toggle:hover { border-color: var(--akzent); color: var(--akzent); }
+.impressum { display: none; margin-top: 1.4rem; background: var(--flaeche); border: 1px solid var(--linie); padding: 1.4rem 1.6rem; max-width: var(--lese); }
 .impressum.offen, .impressum:target { display: block; }
 .impressum h2 { font-size: 1rem; margin-bottom: .8rem; }
 .impressum p { font-size: .85rem; line-height: 1.6; color: var(--text-3); margin-bottom: .6rem; }
-.impressum a { color: var(--magenta); }
+.impressum a { color: var(--akzent); }
 .copy { margin: 1.6rem 0 0; font: 400 .78rem/1.4 var(--f-mono); letter-spacing: .04em; }
 
 /* ---------- 11. Bewegung ---------- */
@@ -246,6 +290,15 @@ p { margin: 0 0 1rem; }
 }
 
 /* ---------- 12. Responsiv ---------- */
+@media (max-width: 899px) {
+  .werksblock { grid-template-columns: 1fr; }
+  /* Prozessgrafik wäre hier zu klein: Liste statt Oval */
+  .schleife-breit { display: none; }
+  .stationen.nur-schmal { display: block; }
+}
+@media (max-width: 560px) {
+  .eckpunkte dl > div { grid-template-columns: 1fr; gap: 0; }
+}
 @media (max-width: 960px) {
   .zweispalt { grid-template-columns: 1fr; }
   .schleife-huelle { max-width: 30rem; }
@@ -261,6 +314,7 @@ p { margin: 0 0 1rem; }
   .kreuz .achse-y, .kreuz .achse-x { display: none; }
   .welt { margin: 0 0 -1px 0; min-height: 0; }
   .teilung { grid-template-columns: 1fr; }
+  .schrittpaar { grid-template-columns: 1fr; }
   .teilung > div + div { border-left: 0; border-top: 1px solid var(--linie); }
   .herkunft { grid-template-columns: 1fr; gap: .8rem; }
   /* Ergebnistabelle mobil als Blöcke: Welt, Urteil, Begründung untereinander */
@@ -276,14 +330,14 @@ p { margin: 0 0 1rem; }
 .seite-auftakt h1 { font-size: clamp(2rem, 4.6vw, 3.3rem); font-weight: 700; line-height: 1.05; margin-bottom: 1.4rem; max-width: 24ch; }
 .seite-auftakt .stand { margin-top: 1rem; }
 .zwischen { font-size: 1.25rem; margin: 2.8rem 0 1rem; }
-h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--magenta); margin: 1.6rem 0 .6rem; }
+h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--akzent); margin: 1.6rem 0 .6rem; }
 .nachsatz-gross { margin-top: 4rem; }
 .quelle { border-top: 1px solid var(--linie); padding-top: 1rem; }
-.nr { display: inline-block; min-width: 2.6rem; font: 500 .74rem/1.6 var(--f-mono); color: var(--magenta); letter-spacing: .06em; }
+.nr { display: inline-block; min-width: 2.6rem; font: 500 .74rem/1.6 var(--f-mono); color: var(--akzent); letter-spacing: .06em; }
 .rel { font: 400 .72rem/1 var(--f-mono); color: var(--text-3); margin-left: .3rem; }
 .liste { margin: 0; padding-left: 1.2rem; color: var(--text-2); max-width: var(--lese); }
 .liste li { margin-bottom: .5rem; }
-.liste li::marker { color: var(--magenta); }
+.liste li::marker { color: var(--akzent); }
 
 /* Faktorliste (Eingabe) */
 .faktorliste { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: 1rem 2rem; margin-bottom: 1rem; }
@@ -299,7 +353,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .radar .sektor { font: 500 11px var(--f-mono); fill: var(--text-2); letter-spacing: .08em; text-transform: uppercase; }
 .radar .ringname { font: 400 9px var(--f-mono); fill: var(--text-3); }
 .radar .punkt, .radar .punkt circle { fill: var(--text-2); fill-opacity: .55; stroke: var(--text); stroke-opacity: .5; stroke-width: .5; }
-.radar .nrtext { font: 500 9px var(--f-mono); fill: var(--magenta); }
+.radar .nrtext { font: 500 9px var(--f-mono); fill: var(--akzent); }
 .themenliste { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linie); font-size: .95rem; }
 .themenliste li { padding: .45rem 0; border-bottom: 1px solid var(--linie-2); color: var(--text-2); }
 .themenliste.nummern .nr { min-width: 1.8rem; }
@@ -309,7 +363,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .einfluss { border-collapse: collapse; width: 100%; min-width: 620px; font-size: .9rem; }
 .einfluss th { font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); text-align: left; padding: .6rem; }
 .einfluss td { border: 1px solid var(--linie); vertical-align: top; padding: .7rem; background: var(--flaeche); width: 30%; }
-.einfluss td.kritisch { outline: 2px solid var(--magenta); outline-offset: -2px; }
+.einfluss td.kritisch { outline: 2px solid var(--akzent); outline-offset: -2px; }
 .einfluss ul { list-style: none; margin: 0; padding: 0; }
 .einfluss li { padding: .2rem 0; color: var(--text-2); }
 .einfluss li.achse { color: var(--text); font-weight: 600; }
@@ -317,7 +371,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .einfluss li.raus { color: var(--text-3); text-decoration: line-through; }
 .legende { font: 400 .78rem/1.5 var(--f-mono); color: var(--text-3); margin-top: .8rem; }
 .legende .achse { color: var(--text); font-weight: 600; }
-.legende .achse::after { content: " ◆"; color: var(--magenta); }
+.legende .achse::after { content: " ◆"; color: var(--akzent); }
 .legende .raus { text-decoration: line-through; }
 .schritte-kurz b { display: block; font: 600 1.05rem/1.4 var(--f-titel); }
 .kreuz.klein .welt { min-height: 6rem; }
@@ -329,7 +383,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .umschalter button { background: none; border: 0; color: var(--text-2); font: 500 .78rem/1 var(--f-mono); letter-spacing: .08em;
   text-transform: uppercase; padding: .7rem 1rem; cursor: pointer; }
 .umschalter button + button { border-left: 1px solid var(--linie); }
-.umschalter button[aria-pressed="true"] { background: var(--magenta); color: var(--grund); }
+.umschalter button[aria-pressed="true"] { background: var(--akzent); color: var(--grund); }
 .kernsatz-welt { font: 600 1.15rem/1.45 var(--f-titel); }
 
 /* Matrix Annahmen / Sprints gegen Welten */
@@ -344,7 +398,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .ketten span:last-child { color: var(--text-2); font-size: .92rem; }
 .optionen { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); }
 .optionen li { border: 1px solid var(--linie); background: var(--flaeche); padding: 1.2rem; }
-.optionen .typ { display: block; font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--magenta); margin-bottom: .5rem; }
+.optionen .typ { display: block; font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--akzent); margin-bottom: .5rem; }
 .optionen b { font: 600 1.05rem/1.35 var(--f-titel); display: block; margin-bottom: .5rem; }
 .optionen p { color: var(--text-2); font-size: .93rem; margin-bottom: .6rem; }
 .optionen .stand { margin: 0; }
@@ -361,7 +415,7 @@ h4 { font: 500 .78rem/1.3 var(--f-mono); letter-spacing: .12em; text-transform: 
 .kernsatz { font-size: 1.12rem; line-height: 1.6; }
 .about-links { display: flex; flex-wrap: wrap; gap: .8rem 1.6rem; margin-top: 1.4rem; }
 .about-links a { font-weight: 600; }
-.recht { max-width: 46rem; }
+.recht { max-width: var(--lese); }
 .recht h2 { font-size: 1.3rem; margin: 2.4rem 0 .8rem; max-width: none; }
 .recht p, .recht li { color: var(--text-2); }
 

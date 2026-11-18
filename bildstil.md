@@ -132,3 +132,61 @@ geschätzt. Die vier fehlgeschlagenen Bildjobs wurden nicht berechnet.
 **Auslieferung:** `img/NAME{,-760,-560}.{avif,webp}` (1600 × 893, 760, 560 px; cwebp q80,
 avifenc q55); `img/og.jpg` 1200 × 630 aus `start`. Filme `film/NAME.mp4`: ffmpeg, H.264 High,
 CRF 21, 1280 × 720, ohne Tonspur, `+faststart`, 10,04 s, 480–572 KB je Film.
+
+## Akzentwechsel 18.11.2026: Magenta in den vorhandenen Bildern
+
+Seit 18.11.2026 ist der Akzent der Seite Orange `#F4821F`. Die Bilder und Filme vom 17.11.2026 wurden
+nicht neu erzeugt und tragen weiter das magentafarbene Akzentlicht aus dem Stilblock oben:
+
+| Bild | Magenta | Wo |
+|---|---|---|
+| `start` (und `og.jpg`) | deutlich | Lichtleiste unten im Passepartout; seit 18.11.2026 nicht mehr eingebunden |
+| `scanning` | deutlich | Lampe am Sensormast |
+| `trendradar` | schwach | zwei kleine Punkte auf dem Radarschirm |
+| `szenariorahmen` | deutlich | Strich auf der Mittellinie |
+| `windkanal` | sehr deutlich | leuchtende Fläche hinter dem Modell |
+| `szenarien` | deutlich | Lichtleiste vor den vier Rahmen |
+| `strategie` | deutlich | Markierung an der Gabelung |
+| `s1-ki-boutiquen` (Bild und Film) | deutlich | beleuchteter Glaskubus vor dem Werk |
+| `s2-algorithmen-refugium` (Bild und Film) | deutlich | Fenster in der Halle |
+| `s3-plattform-vasallen` (Bild und Film) | schwach | kleiner Lichtpunkt auf einem Dach im Hintergrund |
+| `s4-monolithische-stagnation` (Bild und Film) | deutlich | Leuchte am Tor neben dem Depot |
+
+Kein Magenta: Porträt auf `/ueber/`.
+
+## Werksbild `werk` (Bild 00, Startseite), 18.11.2026
+
+Ersetzt das Startbild `start`. **Ausdrückliche Ausnahme vom Stilblock in Abschnitt 2:** Schriftzug „VISEON AG"
+als einzige Schrift im Bild, Tageslicht statt blauer Stunde, Orange (Rolltor) statt Magenta als einziger
+Farbakzent. Freigabe des Prompts durch Prof. am 18.11.2026 (Checkpoint 2).
+
+| Datum | Datei | angefordert | ausgeführt | Job-ID | Ergebnis |
+|---|---|---|---|---|---|
+| 18.11.2026 | `werk` | gpt_image_2_6 (quality high, 2k, 16:9) | gpt_image_2_6 | `b57aee51-8905-4125-853a-20a38a5e6a32` | verwendet, Versuch 1 von 3; Schriftzug in 100 % geprüft: exakt „VISEON AG"; 2,75 Credits |
+
+Referenzbild: `ort-2026` (Higgsfield-Upload `ea0bffd5-f52c-472f-89d3-a292eb112db7`), nur für Formensprache und Lage.
+Rohbild 2688 × 1520 in `medien/roh/werk.png`; Seite: `img/werk{,-760,-560}.{avif,webp}` (1600 × 893,
+cwebp q80, avifenc q60); OG-Bild `img/og-werk.jpg` 1200 × 630 (Ausschnitt).
+Kontostand danach: 841,28 Credits (vorher 844,03).
+
+Prompt:
+
+> Photorealistic architectural photograph of a present-day mid-sized industrial company in Bauhaus style,
+> standing at the edge of a river valley with wooded limestone slopes (Saale valley atmosphere).
+> One medium-sized factory: cubic, white-rendered building volumes with flat roofs, continuous ribbon
+> windows with dark steel frames, a glazed stair tower, and next to it a production hall with a sawtooth
+> (shed) roof. In front, a typical factory site: access road, a small gatehouse with a barrier, a delivery
+> bay with a single roller door painted orange (close to #F4821F), a few passenger cars in the car park,
+> a flagpole without a flag.
+> Clear late morning, natural daylight, realistic like an architecture or corporate photograph, slightly
+> elevated eye level, the buildings fill the 16:9 frame.
+> On the facade of the main building: the lettering "VISEON AG" in capital letters, a geometric sans-serif,
+> made of individual brushed-metal letters mounted on the white wall, large and clearly legible, spelled
+> exactly V-I-S-E-O-N A-G. This is the only text in the image.
+> Natural colours throughout; the orange roller door is the only colour accent. No magenta, no coloured
+> accent lighting.
+> No other text, signs, numbers, logos or brand names, no people, no recognisable real buildings
+> (not the Bauhaus building in Dessau, not the Fagus factory, no other famous building), no reference to
+> any real company.
+> Use the reference image only for the massing and proportions of the building volumes and the river-valley
+> setting; the camera position, time of day and facades may differ.
