@@ -12,7 +12,7 @@
   Szenariokreuz und Windkanal-Ergebnis · Arbeitsteilung, Herkunft, Fragen, Aufruf. Keine „Bild NN"-Labels mehr.
 - **Werksbild** `img/werk*` (GPT Image 2.6, Higgsfield) als Bild 00; `og:image` jetzt `img/og-werk.jpg`.
 - **Gelöscht:** `img/start.avif`, `img/start.webp`, `img/start-560.avif`, `img/start-560.webp`,
-  `img/start-760.avif`, `img/start-760.webp` (nicht mehr eingebunden).
+  `img/start-760.avif`, `img/start-760.webp`, `img/og.jpg` (nicht mehr eingebunden).
 - Cache-Buster `2026-11-18`.
 
 ## 17.11.2026 — Relaunch als Musterfall (vor Livegang)
