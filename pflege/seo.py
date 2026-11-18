@@ -303,6 +303,7 @@ def rahmen(t, aktuell_pfad, station):
                lambda m: "<!-- prozess -->\n" + prozess_html(station) + "\n<!-- /prozess -->", t, flags=re.S)
     t = re.sub(r"<!-- fuss -->.*?<!-- /fuss -->",
                lambda m: "<!-- fuss -->\n" + fuss_html() + "\n<!-- /fuss -->", t, flags=re.S)
+    t = re.sub(r'href="/favicon\.svg(?:\?v=[0-9a-z-]+)?"', 'href="/favicon.svg?v=' + VERSION + '"', t)  # Favicon-Cache der Browser
     return re.sub(r'((?:style\.css|main\.js|track\.js|stats\.js|szenarien\.js))\?v=[0-9a-z-]+', r'\1?v=' + VERSION, t)
 
 
