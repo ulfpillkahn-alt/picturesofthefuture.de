@@ -164,6 +164,8 @@ p { margin: 0 0 1rem; }
 /* Gliederung der Startseite: Trennstrich zwischen den Teilen, innerhalb eines Teils keiner */
 .sektion.teil { border-top: 1px solid var(--trenner); }
 .sektion.folge { border-top: 0; padding-top: calc(var(--sektion) * .5); }
+/* Startseite: Abschnittsüberschriften über die volle Breite, auf dem Desktop einzeilig */
+.sektion.teil h2, .sektion.folge h2 { max-width: none; }
 /* Schrittpaare */
 .schrittpaar { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin: 1.6rem 0 2.2rem; }
 .schritt h3 { display: flex; align-items: baseline; gap: .7rem; margin-bottom: .6rem; }

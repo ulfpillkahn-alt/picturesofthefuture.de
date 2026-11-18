@@ -27,7 +27,7 @@ import sys
 
 BASIS = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = "https://picturesofthefuture.de"
-VERSION = "2026-11-18"          # Cache-Buster für CSS/JS — bei Änderungen hochzählen
+VERSION = "2026-11-18-2"          # Cache-Buster für CSS/JS — bei Änderungen hochzählen
 SITE_NAME = "Pictures of the Future"
 
 # ------------------------------------------------------------------ Kanon
